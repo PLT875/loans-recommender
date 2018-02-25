@@ -29,7 +29,7 @@ public class Quote {
     }
 
     public void setRate(BigDecimal rate) {
-        this.rate = rate.setScale(1, BigDecimal.ROUND_HALF_DOWN);
+        this.rate = rate;
     }
 
 }

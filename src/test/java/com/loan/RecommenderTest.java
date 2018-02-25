@@ -24,9 +24,21 @@ public class RecommenderTest {
             new Lender("l5", new BigDecimal("0.03"), 300)
     };
 
+    private Recommender rec1;
+    private Lender[] len1 = {
+            new Lender("Bob", new BigDecimal("0.075"), 640),
+            new Lender("Jane", new BigDecimal("0.069"), 480),
+            new Lender("Fred", new BigDecimal("0.071"), 520),
+            new Lender("Mary", new BigDecimal("0.104"), 170),
+            new Lender("John", new BigDecimal("0.081"), 320),
+            new Lender("Dave", new BigDecimal("0.074"), 140),
+            new Lender("Angela", new BigDecimal("0.071"), 60)
+    };
+
     @Before
     public void setup() {
         rec0 = new Recommender(len0);
+        rec1 = new Recommender(len1);
     }
 
     @Test
@@ -48,5 +60,15 @@ public class RecommenderTest {
 
         Lender[] l2 = rec0.getAvailableLenders(3000);
         assertEquals(0, l2.length);
+    }
+
+    @Test
+    public void testRetrieveQuote() {
+        Quote q0 = rec1.retrieveQuote(1000);
+
+        BigDecimal exp = new BigDecimal("0.07");
+        BigDecimal act = q0.getRate().setScale(2, BigDecimal.ROUND_HALF_DOWN);
+
+        assertTrue(String.format("expected: %s, actual: %s", exp, act), act.equals(exp));
     }
 }
