@@ -1,5 +1,7 @@
 package com.loan;
 
+import com.loan.model.Lender;
+import com.loan.model.Quote;
 import org.junit.Before;
 import org.junit.Test;
 

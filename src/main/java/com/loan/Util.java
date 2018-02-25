@@ -25,9 +25,8 @@ public class Util {
      * Calculates the monthly repayment based on EMI, for reference see
      * https://en.wikipedia.org/wiki/Equated_monthly_installment
      *
-     * @param rate the annual rate
+     * @param rate   the annual rate
      * @param amount the requested loan amount
-     *
      * @return the monthly repayment
      */
     public static BigDecimal calculateMonthlyRepayment(BigDecimal rate, int amount) {

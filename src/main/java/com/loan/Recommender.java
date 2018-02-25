@@ -1,5 +1,8 @@
 package com.loan;
 
+import com.loan.model.Lender;
+import com.loan.model.Quote;
+
 import java.util.Arrays;
 import java.util.stream.Stream;
 
@@ -19,7 +22,6 @@ public class Recommender {
      * Obtains the best quote from the pool of lenders.
      *
      * @param amount the loan amount that was requested
-     *
      * @return a single quote, indicating if it was available or not
      */
     public Quote retrieveQuote(int amount) {
@@ -39,7 +41,6 @@ public class Recommender {
      * that can provide a quotation
      *
      * @param amount the loan amount that was requested
-     *
      * @return true if there is at least one lender available, false otherwise
      */
     private boolean availableLenders(int amount) {

@@ -1,4 +1,4 @@
-package com.loan;
+package com.loan.model;
 
 import java.math.BigDecimal;
 
