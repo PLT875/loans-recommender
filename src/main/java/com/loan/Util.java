@@ -7,7 +7,8 @@ import java.math.MathContext;
  * Set of helper methods for the application.
  */
 public class Util {
-    private static final int MONTHS = 36;
+    public static final int MONTHS = 36;
+
     private static final int INCREMENT = 100;
     private static final int MIN_REQUEST = 1000;
     private static final int MAX_REQUEST = 15000;
@@ -39,12 +40,13 @@ public class Util {
 
         BigDecimal oneAddMr = BigDecimal.ONE.add(mr);
 
-        BigDecimal a = mr.multiply(oneAddMr.pow(MONTHS));
+        BigDecimal a = mr.multiply(oneAddMr.pow(MONTHS), MathContext.DECIMAL128);
         BigDecimal b = (oneAddMr.pow(MONTHS)).subtract(BigDecimal.ONE);
 
         BigDecimal aDivB = a.divide(b, MathContext.DECIMAL128);
 
-        return requested.multiply(aDivB).setScale(2, BigDecimal.ROUND_HALF_DOWN);
+        return requested.multiply(aDivB, MathContext.DECIMAL128)
+                .setScale(2, BigDecimal.ROUND_HALF_DOWN);
     }
 
 }

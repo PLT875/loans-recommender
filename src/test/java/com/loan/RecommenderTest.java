@@ -66,9 +66,23 @@ public class RecommenderTest {
     public void testRetrieveQuote() {
         Quote q0 = rec1.retrieveQuote(1000);
 
-        BigDecimal exp = new BigDecimal("0.07");
-        BigDecimal act = q0.getRate().setScale(2, BigDecimal.ROUND_HALF_DOWN);
+        BigDecimal expRate = new BigDecimal("0.07");
+        BigDecimal actRate = q0.getRate().setScale(2, BigDecimal
+                .ROUND_HALF_DOWN);
 
-        assertTrue(String.format("expected: %s, actual: %s", exp, act), act.equals(exp));
+        assertTrue(String.format("expected: %s, actual: %s", expRate, actRate),
+                actRate.equals(expRate));
+
+        BigDecimal expMr = new BigDecimal("30.89");
+        BigDecimal actMr = q0.getMonthlyRepayment();
+
+        assertTrue(String.format("expected: %s, actual: %s", expMr, actMr),
+                actMr.equals(expMr));
+
+        BigDecimal expTr = new BigDecimal("1112.04");
+        BigDecimal actTr = q0.getTotalRepayment();
+
+        assertTrue(String.format("expected: %s, actual: %s", expTr, actTr),
+                actTr.equals(expTr));
     }
 }

@@ -8,9 +8,10 @@ import java.math.BigDecimal;
  */
 public class Quote {
     private int requestedAmount;
-
     private boolean available;
     private BigDecimal rate;
+    private BigDecimal monthlyRepayment;
+    private BigDecimal totalRepayment;
 
     public Quote(int requestedAmount) {
         this.requestedAmount = requestedAmount;
@@ -30,6 +31,22 @@ public class Quote {
 
     public void setRate(BigDecimal rate) {
         this.rate = rate;
+    }
+
+    public BigDecimal getMonthlyRepayment() {
+        return monthlyRepayment;
+    }
+
+    public void setMonthlyRepayment(BigDecimal monthlyRepayment) {
+        this.monthlyRepayment = monthlyRepayment;
+    }
+
+    public BigDecimal getTotalRepayment() {
+        return totalRepayment;
+    }
+
+    public void setTotalRepayment(BigDecimal totalRepayment) {
+        this.totalRepayment = totalRepayment;
     }
 
 }

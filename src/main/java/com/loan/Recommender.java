@@ -47,6 +47,18 @@ public class Recommender {
                 MathContext.DECIMAL128);
 
         quote.setRate(avgRate);
+
+        // monthly repayment
+        BigDecimal mr = Util.calculateMonthlyRepayment(avgRate, amount);
+        quote.setMonthlyRepayment(mr);
+
+        // total repayment
+        BigDecimal m36 = new BigDecimal(Util.MONTHS);
+        BigDecimal tr = mr.multiply(m36, MathContext.DECIMAL128).setScale(2,
+                BigDecimal.ROUND_HALF_DOWN);
+
+        quote.setTotalRepayment(tr);
+
         return quote;
     }
 
