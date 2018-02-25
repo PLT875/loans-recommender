@@ -10,6 +10,7 @@ public class Quote {
     private int requestedAmount;
 
     private boolean available;
+    private BigDecimal rate;
 
     public Quote(int requestedAmount) {
         this.requestedAmount = requestedAmount;
@@ -21,6 +22,14 @@ public class Quote {
 
     public void setAvailable(boolean available) {
         this.available = available;
+    }
+
+    public BigDecimal getRate() {
+        return rate;
+    }
+
+    public void setRate(BigDecimal rate) {
+        this.rate = rate.setScale(1, BigDecimal.ROUND_HALF_DOWN);
     }
 
 }

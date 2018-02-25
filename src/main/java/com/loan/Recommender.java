@@ -3,6 +3,8 @@ package com.loan;
 import com.loan.model.Lender;
 import com.loan.model.Quote;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -36,6 +38,15 @@ public class Recommender {
 
         quote.setAvailable(true);
 
+        // calculate average interest rate
+        List<Lender> lendersList = Arrays.asList(qualifying);
+        BigDecimal totalRate = lendersList.stream().map(l -> l.getRate())
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        BigDecimal avgRate = totalRate.divide(new BigDecimal(lendersList.size()),
+                MathContext.DECIMAL128);
+
+        quote.setRate(avgRate);
         return quote;
     }
 
@@ -48,7 +59,8 @@ public class Recommender {
      */
     public Lender[] getAvailableLenders(int amount) {
         List<Lender> lenders = Arrays.asList(this.lenders);
-        lenders.sort(Comparator.comparing(Lender::getRate));
+        lenders.sort(Comparator.comparing(Lender::getRate).thenComparing
+                (Lender::getAvailable));
 
         int cumulative = 0;
         List<Lender> qualifying = new ArrayList<>();
