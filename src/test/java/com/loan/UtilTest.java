@@ -3,7 +3,6 @@ package com.loan;
 import org.junit.Test;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -25,10 +24,9 @@ public class UtilTest {
 
     @Test
     public void testCalculateRepayment() {
-        BigDecimal act = Util.calculateMonthlyRepayment(new BigDecimal(0.069), 1000);
-        act.setScale(2, RoundingMode.DOWN);
+        BigDecimal act = Util.calculateMonthlyRepayment(new BigDecimal(0.07), 1000);
 
-        BigDecimal exp = new BigDecimal("30.83");
+        BigDecimal exp = new BigDecimal("30.88");
         assertTrue(String.format("expected: %s, actual: %s", exp, act), act.equals(exp));
     }
 }

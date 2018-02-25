@@ -1,7 +1,7 @@
 package com.loan;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
+import java.math.MathContext;
 
 /**
  * Set of helper methods for the application.
@@ -27,7 +27,7 @@ public class Util {
      *
      * @param rate   the annual rate
      * @param amount the requested loan amount
-     * @return the monthly repayment
+     * @return the monthly repayment to 2 decimal places
      */
     public static BigDecimal calculateMonthlyRepayment(BigDecimal rate, int amount) {
         BigDecimal twelve = new BigDecimal(12);
@@ -35,16 +35,16 @@ public class Util {
         BigDecimal requested = new BigDecimal(amount);
 
         // monthly rate
-        BigDecimal mr = rate.divide(twelve, 8, BigDecimal.ROUND_DOWN);
+        BigDecimal mr = rate.divide(twelve, MathContext.DECIMAL128);
 
         BigDecimal oneAddMr = BigDecimal.ONE.add(mr);
 
         BigDecimal a = mr.multiply(oneAddMr.pow(MONTHS));
         BigDecimal b = (oneAddMr.pow(MONTHS)).subtract(BigDecimal.ONE);
 
-        BigDecimal aDivB = a.divide(b, 8, BigDecimal.ROUND_DOWN);
+        BigDecimal aDivB = a.divide(b, MathContext.DECIMAL128);
 
-        return requested.multiply(aDivB).setScale(2, RoundingMode.DOWN);
+        return requested.multiply(aDivB).setScale(2, BigDecimal.ROUND_HALF_DOWN);
     }
 
 }
