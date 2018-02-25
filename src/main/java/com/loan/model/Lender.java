@@ -27,4 +27,5 @@ public class Lender {
     public int getAvailable() {
         return available;
     }
+
 }

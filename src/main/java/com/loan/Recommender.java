@@ -3,8 +3,10 @@ package com.loan;
 import com.loan.model.Lender;
 import com.loan.model.Quote;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.stream.Stream;
+import java.util.Comparator;
+import java.util.List;
 
 /**
  * Processes loan requests and returns the most competitive quote from a
@@ -26,7 +28,8 @@ public class Recommender {
      */
     public Quote retrieveQuote(int amount) {
         Quote quote = new Quote(amount);
-        if (!availableLenders(amount)) {
+        Lender[] qualifying = getAvailableLenders(amount);
+        if (qualifying.length == 0) {
             quote.setAvailable(false);
             return quote;
         }
@@ -37,15 +40,27 @@ public class Recommender {
     }
 
     /**
-     * Helper method to check to see if there is at least one lender
-     * that can provide a quotation
+     * Returns a number of lenders that can satisfy the loan request, priority
+     * given to those with lower interest rates
      *
      * @param amount the loan amount that was requested
-     * @return true if there is at least one lender available, false otherwise
+     * @return array of lenders that can satisfy the loan, empty otherwise
      */
-    private boolean availableLenders(int amount) {
-        Stream<Lender> lenders = Arrays.stream(this.lenders);
-        return lenders.filter(l -> l.getAvailable() >= amount).count() > 0;
+    public Lender[] getAvailableLenders(int amount) {
+        List<Lender> lenders = Arrays.asList(this.lenders);
+        lenders.sort(Comparator.comparing(Lender::getRate));
+
+        int cumulative = 0;
+        List<Lender> qualifying = new ArrayList<>();
+        for (Lender provider : lenders) {
+            qualifying.add(provider);
+            cumulative += provider.getAvailable();
+            if (cumulative >= amount) {
+                return qualifying.toArray(new Lender[qualifying.size()]);
+            }
+        }
+
+        return new Lender[0];
     }
 
 }
