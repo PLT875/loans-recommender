@@ -1,6 +1,7 @@
 package com.loan.model;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 
 /**
  * Represents a quote that is returned by the recommender for the requested
@@ -47,6 +48,18 @@ public class Quote {
 
     public void setTotalRepayment(BigDecimal totalRepayment) {
         this.totalRepayment = totalRepayment;
+    }
+
+    @Override
+    public String toString() {
+        String ra = String.format("Requested amount: £%s\n", requestedAmount);
+        String r = String.format("Rate: %.1f", rate.doubleValue() * 100)
+                .concat("%\n");
+        
+        String mp = String.format("Monthly repayment: £%s\n", monthlyRepayment);
+        String tp = String.format("Total repayment: £%s\n", totalRepayment);
+
+        return String.format("%s%s%s%s", ra, r, mp, tp);
     }
 
 }

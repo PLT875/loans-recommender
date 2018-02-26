@@ -17,6 +17,7 @@ public class Util {
      * Utility method to check if a loan request is valid.
      *
      * @return true if the request is valid, false otherwise
+     * @todo return custom exceptions?
      */
     public static boolean validateLoanRequest(int amount) {
         return (amount % INCREMENT == 0 && amount >= MIN_REQUEST && amount <= MAX_REQUEST);
