@@ -32,6 +32,7 @@ public class CsvReader {
 
                 continue;
             }
+            
             Lender lender = new Lender(row[0], new BigDecimal(row[1]), new
                     Integer(row[2]).intValue());
 

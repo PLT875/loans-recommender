@@ -12,7 +12,7 @@ Assumptions:
 
 ## Build, test and package
 ```
-mvn package
+mvn clean package
 ```
 
 ## Running the application, e.g.
